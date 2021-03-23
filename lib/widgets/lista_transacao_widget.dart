@@ -29,7 +29,7 @@ class ListaTransacao extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  'R\$${transacoes[index].valor}',
+                  'R\$${transacoes[index].valor.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,

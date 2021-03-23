@@ -19,30 +19,37 @@ class NovaTransacao extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Título'),
               controller: tituloController,
-              // onChanged: (val) {
-              //   titleInput = val;
-              // },
+              onSubmitted: (_) => enviarTransacao(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Valor'),
               controller: valorController,
-              // onChanged: (val) => amountInput = val,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => enviarTransacao(),
             ),
             TextButton(
               child: Text(
                 'Adicionar Transação',
                 style: TextStyle(color: Colors.purple),
               ),
-              onPressed: () {
-                adicionarTransacao(
-                  tituloController.text,
-                  double.parse(valorController.text),
-                );
-              },
+              onPressed: enviarTransacao,
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void enviarTransacao() {
+    final tituloDigitado = tituloController.text;
+    final valorDigitado = double.parse(valorController.text);
+
+    if (tituloDigitado.isEmpty || valorDigitado <= 0) {
+      return;
+    }
+    adicionarTransacao(
+      tituloDigitado,
+      valorDigitado,
     );
   }
 }
