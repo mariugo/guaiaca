@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 
-class NovaTransacao extends StatelessWidget {
+class NovaTransacao extends StatefulWidget {
   final Function adicionarTransacao;
+  NovaTransacao(this.adicionarTransacao);
+
+  @override
+  _NovaTransacaoState createState() => _NovaTransacaoState();
+}
+
+class _NovaTransacaoState extends State<NovaTransacao> {
   final tituloController = TextEditingController();
   final valorController = TextEditingController();
-
-  NovaTransacao(this.adicionarTransacao);
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +52,10 @@ class NovaTransacao extends StatelessWidget {
     if (tituloDigitado.isEmpty || valorDigitado <= 0) {
       return;
     }
-    adicionarTransacao(
+    widget.adicionarTransacao(
       tituloDigitado,
       valorDigitado,
     );
+    Navigator.of(context).pop();
   }
 }

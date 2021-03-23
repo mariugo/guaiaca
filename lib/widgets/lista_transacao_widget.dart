@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../model/transacao.dart';
 import 'package:intl/intl.dart';
+import '../model/transacao.dart';
 
 class ListaTransacao extends StatelessWidget {
   final List<Transacao> transacoes;
