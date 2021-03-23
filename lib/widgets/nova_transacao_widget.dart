@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class NovaTransacao extends StatelessWidget {
-  final Function adicionarTxt;
+  final Function adicionarTransacao;
   final tituloController = TextEditingController();
-  final valorControler = TextEditingController();
+  final valorController = TextEditingController();
 
-  NovaTransacao(this.adicionarTxt);
+  NovaTransacao(this.adicionarTransacao);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class NovaTransacao extends StatelessWidget {
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Valor'),
-              controller: valorControler,
+              controller: valorController,
               // onChanged: (val) => amountInput = val,
             ),
             TextButton(
@@ -34,9 +34,9 @@ class NovaTransacao extends StatelessWidget {
                 style: TextStyle(color: Colors.purple),
               ),
               onPressed: () {
-                adicionarTxt(
+                adicionarTransacao(
                   tituloController.text,
-                  double.parse(valorControler.text),
+                  double.parse(valorController.text),
                 );
               },
             ),

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import './widgets/usuario_transacoes_widget.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  final tituloController = TextEditingController();
+  final valorController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,20 +23,21 @@ class MyHomePage extends StatelessWidget {
           appBar: AppBar(
             title: Text('Guaiaca'),
           ),
-          body: Column(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                child: Card(
-                  child: Text('Gráfico...'),
-                  elevation: 5,
-                  color: Colors.blue,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  child: Card(
+                    child: Text('Gráfico...'),
+                    elevation: 5,
+                    color: Colors.blue,
+                  ),
                 ),
-              ),
-              Card(
-                child: Text('Conteúdo'),
-              ),
-            ],
+                UsuarioTransacoes(),
+              ],
+            ),
           )),
     );
   }
