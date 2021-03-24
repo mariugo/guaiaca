@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:guaiaca/widgets/lista_transacao_widget.dart';
+import '../widgets/lista_transacao_widget.dart';
 import '../model/transacao.dart';
 import '../widgets/nova_transacao_widget.dart';
 
@@ -39,10 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 width: double.infinity,
                 child: Card(
-                  child: Text('Gráfico...'),
-                  elevation: 5,
-                  color: Colors.blue,
-                ),
+                    child: Text('Gráfico...'),
+                    elevation: 5,
+                    color: Theme.of(context).primaryColor),
               ),
               ListaTransacao(_usuarioTransacoes),
             ],

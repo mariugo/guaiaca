@@ -35,7 +35,9 @@ class _NovaTransacaoState extends State<NovaTransacao> {
             TextButton(
               child: Text(
                 'Adicionar Transação',
-                style: TextStyle(color: Colors.purple),
+                style: TextStyle(
+                  color: Theme.of(context).accentColor,
+                ),
               ),
               onPressed: enviarTransacao,
             ),
