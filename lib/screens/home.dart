@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:guaiaca/widgets/grafico.dart';
 import '../widgets/lista_transacao_widget.dart';
 import '../model/transacao.dart';
 import '../widgets/nova_transacao_widget.dart';
@@ -12,6 +13,14 @@ class _MyHomePageState extends State<MyHomePage> {
   final tituloController = TextEditingController();
   final valorController = TextEditingController();
   final List<Transacao> _usuarioTransacoes = [];
+
+  List<Transacao> get _usuarioTransacoesRecentes {
+    return _usuarioTransacoes.where((element) {
+      return element.data.isAfter(
+        DateTime.now().subtract(Duration(days: 7)),
+      );
+    }).toList();
+  }
 
   void _adicionarNovaTransacao(String titulo, double valor) {
     final novaTransacao = Transacao(
@@ -38,10 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: <Widget>[
               Container(
                 width: double.infinity,
-                child: Card(
-                    child: Text('Gráfico...'),
-                    elevation: 5,
-                    color: Theme.of(context).primaryColor),
+                child: Grafico(_usuarioTransacoesRecentes),
               ),
               ListaTransacao(_usuarioTransacoes),
             ],
