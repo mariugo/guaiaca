@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NovaTransacao extends StatefulWidget {
   final Function adicionarTransacao;
@@ -9,8 +10,25 @@ class NovaTransacao extends StatefulWidget {
 }
 
 class _NovaTransacaoState extends State<NovaTransacao> {
-  final tituloController = TextEditingController();
-  final valorController = TextEditingController();
+  final _tituloController = TextEditingController();
+  final _valorController = TextEditingController();
+  DateTime? _dataTransacao;
+
+  void _mostrarCalendario() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now(),
+    ).then((dataEscolhida) {
+      if (dataEscolhida == null) {
+        return;
+      }
+      setState(() {
+        _dataTransacao = dataEscolhida;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,23 +41,44 @@ class _NovaTransacaoState extends State<NovaTransacao> {
           children: <Widget>[
             TextField(
               decoration: InputDecoration(labelText: 'Título'),
-              controller: tituloController,
-              onSubmitted: (_) => enviarTransacao(),
+              controller: _tituloController,
+              onSubmitted: (_) => _enviarTransacao(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Valor'),
-              controller: valorController,
+              controller: _valorController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => enviarTransacao(),
+              onSubmitted: (_) => _enviarTransacao(),
             ),
-            TextButton(
+            Container(
+              height: 70,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: Text(_dataTransacao == null
+                        ? 'Nenhuma data escolhida'
+                        : 'Data escolhida: ${DateFormat.yMd().format(_dataTransacao!)}'),
+                  ),
+                  TextButton(
+                    onPressed: _mostrarCalendario,
+                    child: Text(
+                      'Escolher Data',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).accentColor),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ElevatedButton(
               child: Text(
                 'Adicionar Transação',
                 style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Colors.white,
                 ),
               ),
-              onPressed: enviarTransacao,
+              onPressed: _enviarTransacao,
             ),
           ],
         ),
@@ -47,9 +86,9 @@ class _NovaTransacaoState extends State<NovaTransacao> {
     );
   }
 
-  void enviarTransacao() {
-    final tituloDigitado = tituloController.text;
-    final valorDigitado = double.parse(valorController.text);
+  void _enviarTransacao() {
+    final tituloDigitado = _tituloController.text;
+    final valorDigitado = double.parse(_valorController.text);
 
     if (tituloDigitado.isEmpty || valorDigitado <= 0) {
       return;

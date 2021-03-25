@@ -25,12 +25,12 @@ class Grafico extends StatelessWidget {
         'dia': DateFormat.E().format(diaSemana).substring(0, 1),
         'valor': somaTotal,
       };
-    });
+    }).reversed.toList();
   }
 
   double get maximoGasto {
     return valoresTransacoesAgrupadas.fold(
-        0, (soma, item) => soma + double.parse(item['valor'].toString()));
+        0, (soma, item) => soma + (item['valor'] as double));
   }
 
   @override
