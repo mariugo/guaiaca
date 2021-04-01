@@ -90,12 +90,15 @@ class _NovaTransacaoState extends State<NovaTransacao> {
     final tituloDigitado = _tituloController.text;
     final valorDigitado = double.parse(_valorController.text);
 
-    if (tituloDigitado.isEmpty || valorDigitado <= 0) {
+    if (tituloDigitado.isEmpty ||
+        valorDigitado <= 0 ||
+        _dataTransacao == null) {
       return;
     }
     widget.adicionarTransacao(
       tituloDigitado,
       valorDigitado,
+      _dataTransacao,
     );
     Navigator.of(context).pop();
   }

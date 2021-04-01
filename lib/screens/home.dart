@@ -22,34 +22,52 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _adicionarNovaTransacao(String titulo, double valor) {
+  void _adicionarNovaTransacao(
+      String titulo, double valor, DateTime dataEscolhida) {
     final novaTransacao = Transacao(
-        id: DateTime.now().toString(),
-        titulo: titulo,
-        valor: valor,
-        data: DateTime.now());
+      id: DateTime.now().toString(),
+      titulo: titulo,
+      valor: valor,
+      data: dataEscolhida,
+    );
 
     setState(() {
       _usuarioTransacoes.add(novaTransacao);
     });
   }
 
+  void _deletarTransacao(String id) {
+    setState(() {
+      _usuarioTransacoes.removeWhere((value) => value.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final myAppBar = AppBar(
+      title: Text('Guaiaca'),
+    );
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Guaiaca'),
-        ),
+        appBar: myAppBar,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Container(
-                width: double.infinity,
+                height: (MediaQuery.of(context).size.height -
+                        myAppBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.3,
                 child: Grafico(_usuarioTransacoesRecentes),
               ),
-              ListaTransacao(_usuarioTransacoes),
+              Container(
+                height: (MediaQuery.of(context).size.height -
+                        myAppBar.preferredSize.height -
+                        MediaQuery.of(context).padding.top) *
+                    0.7,
+                child: ListaTransacao(_usuarioTransacoes, _deletarTransacao),
+              ),
             ],
           ),
         ),
