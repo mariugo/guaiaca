@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:guaiaca/widgets/barras_grafico.dart';
 import 'package:intl/intl.dart';
+
+import '../widgets/barras_grafico.dart';
 import '../model/transacao.dart';
 
 class Grafico extends StatelessWidget {

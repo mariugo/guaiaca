@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:guaiaca/widgets/grafico.dart';
+
 import '../widgets/lista_transacao_widget.dart';
 import '../model/transacao.dart';
 import '../widgets/nova_transacao_widget.dart';
+import '../widgets/grafico.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -82,12 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _iniciarModal(BuildContext ctx) {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: ctx,
         builder: (_) {
-          return GestureDetector(
-            onTap: () {},
+          return AnimatedPadding(
+            padding: (MediaQuery.of(context).viewInsets),
+            duration: const Duration(milliseconds: 100),
+            curve: Curves.decelerate,
             child: NovaTransacao(_adicionarNovaTransacao),
-            behavior: HitTestBehavior.opaque,
           );
         });
   }
